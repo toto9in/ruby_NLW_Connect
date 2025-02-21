@@ -4,7 +4,12 @@ module Subscribers
       existing_subscriber_reponse = check_subscriber(params[:email], params[:event_id])
       return existing_subscriber_reponse if existing_subscriber_reponse
 
-      subscriber = Subscriber.create(params)
+      existing_event_response = check_event(params[:event_id])
+      return existing_event_response if existing_event_response
+
+      puts params
+      subscriber = Subscriber.create(name: params[:name], email: params[:email], link: params[:link], event_id: params[:event_id])
+      puts subscriber.inspect
       format_response(subscriber) if subscriber.valid?
     end
 
@@ -20,6 +25,19 @@ module Subscribers
             errors: [ "Subscriber already exists" ]
           },
           status_code: 409
+        }
+      end
+      nil
+    end
+
+    def check_event(event_id)
+      result = Event.find_by(id: event_id)
+      if result.nil?
+        return {
+          body: {
+            errors: [ "Event is not valid" ]
+          },
+          status_code: 422
         }
       end
       nil
