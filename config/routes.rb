@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post "subscriber", to: "subscribers#create"
   get "subscriber/link/:link/event/:event_id", to: "subscribers#subscribers_by_link"
   get "subscriber/ranking/event/:event_id", to: "subscribers#link_ranking"
+  post "events_link", to: "events_link#create"
 
   # Defines the root path route ("/")
   # root "posts#index"

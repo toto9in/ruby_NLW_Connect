@@ -1,6 +1,6 @@
 module Events
   class EventsCreatorService
-    def create(event_name)
+    def create(params)
       existing_event_response = check_event(event_name)
       return existing_event_response if existing_event_response
 
