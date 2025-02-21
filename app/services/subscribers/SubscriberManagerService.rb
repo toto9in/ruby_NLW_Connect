@@ -8,6 +8,19 @@ module Subscribers
       format_subs_by_link_response(subscribers)
     end
 
+    def get_event_ranking(event_id)
+      result = Subscriber
+                 .where(event_id: event_id)
+                 .where.not(link: nil)
+                 .group(:link)
+                 .order("COUNT(id) DESC")
+                 .count
+
+      return { body: { data: [] }, status_code: 200 } if result.empty?
+
+      format_event_ranking_response(result)
+    end
+
     private
 
     def format_subs_by_link_response(subscribers)
@@ -27,6 +40,25 @@ module Subscribers
         },
         status_code: 200
       }
+    end
+
+    def format_event_ranking_response(ranking)
+      formatted_event_ranking = ranking.map do |link, value|
+        {
+          link:,
+          total: value
+        }
+      end
+        {
+          body: {
+            data: {
+              Type: "Ranking",
+              count: formatted_event_ranking.size,
+              attributes: formatted_event_ranking
+            }
+          },
+          status_code: 200
+        }
     end
   end
 end

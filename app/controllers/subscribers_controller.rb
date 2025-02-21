@@ -18,6 +18,14 @@ class SubscribersController < ApplicationController
     render json: response[:body], status: response[:status_code]
   end
 
+  def link_ranking
+    event_id = params[:event_id]
+
+    response = Subscribers::SubscriberManagerService.new.get_event_ranking(event_id)
+
+    render json: response[:body], status: response[:status_code]
+  end
+
   private
 
   def create_subscriber_params
