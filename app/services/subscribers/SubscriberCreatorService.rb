@@ -7,9 +7,8 @@ module Subscribers
       existing_event_response = check_event(params[:event_id])
       return existing_event_response if existing_event_response
 
-      puts params
       subscriber = Subscriber.create(name: params[:name], email: params[:email], link: params[:link], event_id: params[:event_id])
-      puts subscriber.inspect
+
       format_response(subscriber) if subscriber.valid?
     end
 
