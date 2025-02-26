@@ -1,24 +1,55 @@
-# README
+# Projeto Rails - Projetinho de Inscrições em eventos por referral
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Feito após ver as aulas de python da trilha NLW Connect da Rocketseat de fevereiro 2025
 
-Things you may want to cover:
+## Requisitos
+Antes de rodar o projeto, certifique-se de ter instalado:
+- ruby 3.3.6
 
-* Ruby version
+## Instalação
+1. Clone o repositório:
+   ```sh
+   git clone git@github.com:toto9in/ruby_NLW_Connect.git
+   cd ruby_NLW_Connect
+   ```
+2. Instale as dependências do projeto:
+   ```sh
+   bundle install
+   ```
+3. Configure o banco de dados:
+   ```sh
+   rails db:create db:migrate
+   ```
+4. Inicie o servidor Rails:
+   ```sh
+   rails server
+   ```
 
-* System dependencies
+## Rotas Disponíveis
 
-* Configuration
+### Criar Evento
+- **Rota:** `POST /event`
+- **Controller:** `EventsController#create`
+- **Descrição:** Cria um novo evento.
 
-* Database creation
+### Criar Assinante
+- **Rota:** `POST /subscriber`
+- **Controller:** `SubscribersController#create`
+- **Descrição:** Cadastra um novo assinante em um evento.
 
-* Database initialization
+### Listar Assinantes por Link
+- **Rota:** `GET /subscriber/link/:link/event/:event_id`
+- **Controller:** `SubscribersController#subscribers_by_link`
+- **Descrição:** Retorna a lista de assinantes vinculados a um determinado link em um evento.
 
-* How to run the test suite
+### Ranking de Links do Evento
+- **Rota:** `GET /subscriber/ranking/event/:event_id`
+- **Controller:** `SubscribersController#link_ranking`
+- **Descrição:** Retorna o ranking de links mais utilizados para inscrições em um evento.
 
-* Services (job queues, cache servers, search engines, etc.)
+### Criar Link para Evento
+- **Rota:** `POST /events_link`
+- **Controller:** `EventsLinkController#create`
+- **Descrição:** Gera um link de inscrição para um evento específico.
 
-* Deployment instructions
 
-* ...
